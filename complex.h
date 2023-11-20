@@ -1,6 +1,6 @@
 typedef struct complex {
-  double real;
-  double img;
+    double real;
+    double img;
 } complex;
 
 void print_comp(void);
