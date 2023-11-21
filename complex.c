@@ -13,7 +13,7 @@ int get_num(int needs_comma, double* param);
 int is_comma(char c);
 complex* get_variable(void);
 char get_nonspace_char(void);
-int is_running;
+extern int is_running;
 
 /* Function to update the complex variable members */
 void read_comp(void)
