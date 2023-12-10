@@ -1,3 +1,9 @@
+calc: calc.o
+	gcc -g -std=c99 -Wall -pedantic calc.o -o calc
+
+calc.o: calc.c
+	gcc -O2 -std=c99 -c -Wall -pedantic calc.c -o calc.o
+
 mycomp: mycomp.o complex.o
 	gcc -g -ansi -Wall -pedantic mycomp.o complex.o -o mycomp -lm
 
@@ -9,3 +15,4 @@ complex.o: complex.c complex.h
 
 clean:
 	rm -f *.o mycomp
+	rm -f *.o calc

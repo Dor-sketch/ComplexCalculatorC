@@ -4,6 +4,8 @@ ComplexCalculatorC is a C program that allows you to perform complex number calc
 
 This program was created as a homework assignment for the _System programming Laboratory course (20465)_ at the Open University of Israel, and earned a score of `98`.
 
+_**Update**: This repository now includes a new expression parser and evaluator written in C: [calc.c](calc.c). This program parses mathematical expressions and evaluates them using an expression tree. It can be used as a standalone program or as a library for other projects. See the [Expression Parser and Evaluator](#expression-parser-and-evaluator-) section for more details._
+
 ![Alt text](image.png)
 
 ## Features ✨
@@ -67,3 +69,63 @@ Contributions to ComplexCalculatorC are welcome! If you have suggestions for imp
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 🚀 Happy Exploring in the World of Complex Numbers! 🧮
+
+---
+
+## New: Expression Parser and Evaluator 🧮
+
+This project is a C-based expression parser and evaluator. It constructs an expression tree from mathematical expressions and then evaluates them. Perfect for learning and understanding how parsing works in compilers!
+
+The program was originaly designed for the leetcode problem [Basic Calculator](https://leetcode.com/problems/basic-calculator/), but it can be used as a standalone program or as a library for other projects.
+
+### Features 🌟
+
+- **Expression Parsing**: Converts a string representation of a mathematical expression into an expression tree.
+- **Unary and Binary Operations**: Handles both unary (e.g., `-5`) and binary (e.g., `5 + 3`) operations.
+- **Nested Expressions**: Supports expressions within parentheses (e.g., `(3 + (2 - 1))`).
+- **Inline Functions**: Utilizes inline functions for efficient calculation.
+- **Readable Tree Output**: Prints the structure of the expression tree for easy visualization.
+
+### How to Compile 🛠️
+
+To compile the program, use the same makefile as before:
+
+```bash
+make
+```
+
+This command compiles the `calc.c` file using the C99 standard with level 2 optimizations, which includes function inlining.
+
+### Usage 📖
+
+Run the compiled program from the command line. You can input mathematical expressions, and the program will parse these expressions, construct an expression tree, and then evaluate them.
+
+Simply execute `./expression_parser` and enter your expression at the prompt. The program will output the evaluated result along with a visual representation of the expression tree.
+
+### Example
+
+The program will parse the expression, construct the tree, and output the result along with the tree structure:
+
+Output of [calc_tests.txt](calc_tests.txt):
+
+![Alt text](calc_example.png)
+
+### Contributing 🤝
+
+Contributions to this project are welcome! Whether it's bug fixes, improvements, or new feature suggestions, feel free to fork the repository and submit a pull request.
+
+### License 📜
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+### Acknowledgements 👏
+
+Special thanks to all contributors and users who provided valuable feedback and suggestions for this project.
+
+### Contact 📧
+
+Feel free to reach out for any questions or discussions related to this project. Contact information can be found in my GitHub profile.
+
+---
+
+Happy coding! 😄
