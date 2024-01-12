@@ -1,22 +1,65 @@
 # ComplexCalculatorC 🧮
 
-ComplexCalculatorC is a C program that allows you to perform complex number calculations and explore mathematical concepts in the C programming language. It provides a set of commands to work with complex numbers, making it a useful tool for mathematical calculations and experimentation.
+This C program revolutionizes mathematical computations by `interpreting language`, offering a seamless and intuitive experience for complex number operations. Ideal for both educational and professional use, it's more than just a calculator – it's a gateway to exploring complex mathematics with ease and precision.
 
 This program was created as a homework assignment for the _System programming Laboratory course (20465)_ at the Open University of Israel, and earned a score of `98`.
 
-![Alt text](images/image-1.png)
+<p align="center">
+  <img src="images/gui.png" alt="Alt text">
+</p>
+<div align="center"><i>ComplexCalculatorC GUI</i>
+</div>
 
+---
+
+### Table of Contents 📋
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=2 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [Features ✨](#features-)
+- [Usage 🚀](#usage-)
+- [New GUI! 🖥️](#new-gui-️)
+- [Commands ✍️](#commands-️)
+- [Testing 🧪](#testing-)
+- [Contributing 🤝](#contributing-)
+- [License 📜](#license-)
+- [New: Expression Parser and Evaluator 🧮](#new-expression-parser-and-evaluator-)
+
+<!-- /code_chunk_output -->
+
+---
 
 _**Update**: This repository now includes a new expression parser and evaluator written in C: [calc.c](calc.c). This program parses mathematical expressions and evaluates them using an expression tree. It can be used as a standalone program or as a library for other projects. See the [Expression Parser and Evaluator](#expression-parser-and-evaluator-) section for more details._
 
-
 ## Features ✨
 
-- **Complex Number Operations:** ComplexCalculatorC supports various complex number operations, including addition, subtraction, multiplication, absolute value calculations, and more.
+- **Advanced Pipeline & Multi-Threading** 🚀: Seamlessly manage inputs/outputs with ComplexCalculatorC's cutting-edge pipeline. Perfect as a standalone calculator or as a part of other projects, it's boosted by multi-threading for speedy calculations. Enjoy easy inputs and calculations with a straightforward command-line interface, designed for all user levels and adaptable to any other project by the STDIN/STDOUT pipeline: the functions have no idea that the input is redirected!
 
-- **User-Friendly Interface:** The program offers a user-friendly command-line interface, making it easy to input complex numbers and perform calculations.
+<div>
+<p align="center">
+  <img src="images/pipeline.png" alt="Alt text"
+  style=": left; margin-right: 10px;"
+  hight = 400px width = 400px/>
+</p>
+<div align="center"><i>ComplexCalculatorC Pipeline</i>
+</div>
 
-- **Multiple Variables:** You can work with up to six complex variables (A, B, C, D, E, F) simultaneously, allowing for complex calculations involving multiple variables.
+---
+
+- **Complex Number Operations** 🔢: Tackle everything from simple additions to absolute value calculations with ease, thanks to a wide range of supported complex number operations. Includes Multiple Variable Support: Handle up to six complex variables (A-F) simultaneously, ideal for intricate, multi-variable mathematical tasks.
+
+<div>
+<p align="center">
+  <img src="images/complex.png" alt="Alt text"
+  style=": left; margin-right: 10px;"
+  hight = 400px width = 400px/>
+</p>
+<div align="center"><i>Complex Number Operations</i>
+</div>
+
+---
 
 ## Usage 🚀
 
@@ -32,7 +75,8 @@ _**Update**: This repository now includes a new expression parser and evaluator 
 
 ComplexCalculatorC now includes a graphical user interface (GUI) for a more intuitive user experience. The GUI is built using the `Gtk+` library and allows you to perform complex number calculations and explore mathematical concepts in a visual environment.
 
-![Alt text](images/image-2.png)
+| ![Alt text](images/image-1.png) | ![Alt text](images/image-2.png) |
+| :-----------------------------: | :-----------------------------: |
 
 ## Commands ✍️
 
@@ -116,7 +160,7 @@ The program will parse the expression, construct the tree, and output the result
 
 Output of [calc_tests.txt](calc_tests.txt):
 
-![Alt text](calc_example.png)
+![Alt text](/images/calc_example.png)
 
 ### Contributing 🤝
 
