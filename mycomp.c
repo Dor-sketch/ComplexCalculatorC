@@ -5,23 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 15
-#define FALSE 0
-#define OK 1
-#define FOREVER for (;;)
-#define MAX_COMMANDS 9 /* Define this constant for the number of commands */
-#define ASCII_A 65
-
-/* Error codes */
-#define ERROR_INVALID_NUMBER -1
-#define ERROR_MISSING_COMMA -2
-#define ERROR_EXTRANEOUS_TEXT -3
-#define NO_PARAM -4
-#define BUFFER_OVERFLOW -5
 
 complex a, b, c, d, e, f; /* the 6 complex variables */
-int is_running =
-    OK; /* a global variable that changes only when closing the program */
+
+ int is_running = 1;
 
 /* Structure to keep the name for each variable address */
 struct {
@@ -31,19 +18,16 @@ struct {
             {'E', &e}, {'F', &f}, {'#', NULL}};
 
 /* Structure to save a name for every command */
-struct {
-    char* name;
-    void (*func)(void);
-} cmd[] = {{"print_comp", print_comp},
-           {"abs_comp", abs_comp},
-           {"mult_comp_real", mult_comp_real},
-           {"mult_comp_img", mult_comp_img},
-           {"read_comp", read_comp},
-           {"add_comp", add_comp},
-           {"sub_comp", sub_comp},
-           {"mult_comp_comp", mult_comp_comp},
-           {"stop", stop},
-           {"not_valid", NULL}};
+Cmd cmd[] = {{"print_comp", print_comp},
+             {"abs_comp", abs_comp},
+             {"mult_comp_real", mult_comp_real},
+             {"mult_comp_img", mult_comp_img},
+             {"read_comp", read_comp},
+             {"add_comp", add_comp},
+             {"sub_comp", sub_comp},
+             {"mult_comp_comp", mult_comp_comp},
+             {"stop", stop},
+             {"not_valid", NULL}};
 
 /* Function to get a char from the user and echo it */
 char get_and_echo_char(void)
@@ -332,10 +316,20 @@ void run_commands(void)
     return;
 }
 
-int main(void)
-{
-    user_instructions();
-	while (is_running == OK)
-    	run_commands();
-    return 0;
+void run_commands_from_gui(const char *input_command) {
+    char command[MAX];
+    int i;
+    strncpy(command, input_command, MAX - 1);
+    command[MAX - 1] = '\0';
+
+    for (i = 0; i < MAX_COMMANDS; i++) {
+        if (strcmp(command, cmd[i].name) == 0)
+            break;
+    }
+
+    if (cmd[i].func == NULL) {
+        printf("Undefined command name: %s\n", command);
+    } else {
+        (*(cmd[i].func))(); /* Execute the command */
+    }
 }

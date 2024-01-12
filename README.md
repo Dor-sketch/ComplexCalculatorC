@@ -4,9 +4,11 @@ ComplexCalculatorC is a C program that allows you to perform complex number calc
 
 This program was created as a homework assignment for the _System programming Laboratory course (20465)_ at the Open University of Israel, and earned a score of `98`.
 
+![Alt text](images/image-1.png)
+
+
 _**Update**: This repository now includes a new expression parser and evaluator written in C: [calc.c](calc.c). This program parses mathematical expressions and evaluates them using an expression tree. It can be used as a standalone program or as a library for other projects. See the [Expression Parser and Evaluator](#expression-parser-and-evaluator-) section for more details._
 
-![Alt text](image.png)
 
 ## Features ✨
 
@@ -25,6 +27,12 @@ _**Update**: This repository now includes a new expression parser and evaluator 
    ```bash
    make
     ```
+
+## New GUI! 🖥️
+
+ComplexCalculatorC now includes a graphical user interface (GUI) for a more intuitive user experience. The GUI is built using the `Gtk+` library and allows you to perform complex number calculations and explore mathematical concepts in a visual environment.
+
+![Alt text](images/image-2.png)
 
 ## Commands ✍️
 
@@ -50,12 +58,12 @@ To facilitate testing of ComplexCalculatorC, two text files are provided:
 
 - [input.txt](input.txt): Contains a series of valid inputs for testing various functionalities of the program. You can use these inputs to see how the program handles typical use cases.
 
-    ![Alt text](correct_input.png)
+    ![Alt text](images/correct_input.png)
     _Example of valid inputs in `input.txt`_
 
 - [invalid_input.txt](invalid_input.txt): Includes examples of invalid inputs to test the program's error handling and robustness. This can help ensure that the program gracefully handles unexpected or incorrect user input.
 
-    ![Alt text](invalid_input.png)
+    ![Alt text](images/invalid_input.png)
     _Example of invalid inputs in `invalid_input.txt`_
 
 Feel free to use these files to experiment with the program and understand its capabilities and limitations.
