@@ -5,6 +5,7 @@
 
 // Function declarations
 void on_button_clicked(GtkWidget *widget, gpointer data);
+extern void run_commands();
 
 // Activate function: Sets up the GTK window and widgets
 void activate(GtkApplication *app, gpointer user_data) {
@@ -36,8 +37,8 @@ void activate(GtkApplication *app, gpointer user_data) {
     gtk_widget_show_all(window);
 }
 void on_button_clicked(GtkWidget *widget, gpointer data) {
-    static int pipefd[2] = {-1, -1};
-    static pid_t pid = -1;
+    int pipefd[2] = {-1, -1};
+    pid_t pid = -1;
 
     if (pipefd[0] == -1 && pipefd[1] == -1) {
         if (pipe(pipefd) == -1) {
@@ -58,19 +59,25 @@ void on_button_clicked(GtkWidget *widget, gpointer data) {
 
             // Execute commands
             run_commands();
-            exit(EXIT_FAILURE);
+            exit(EXIT_SUCCESS);
         } else {              // Parent process
             close(pipefd[0]); // Close the read end of the pipe
         }
     }
 
-    char *input = gtk_entry_get_text(GTK_ENTRY(data));
+    char *input = (char *) gtk_entry_get_text(GTK_ENTRY(data));
 
-    // add a newline to the end of the input
-    input = realloc(input, strlen(input) + 2);
-    input[strlen(input)] = '\n';
+    char *input_with_newline = malloc(strlen(input) + 2);
+    if (input_with_newline == NULL) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
 
-    if (write(pipefd[1], input, strlen(input)) == -1) {
+    strcpy(input_with_newline, input);
+    input_with_newline[strlen(input)] = '\n';
+
+    if (write(pipefd[1], input_with_newline, strlen(input_with_newline)) ==
+        -1) {
         perror("write");
         exit(EXIT_FAILURE);
     }
@@ -78,7 +85,10 @@ void on_button_clicked(GtkWidget *widget, gpointer data) {
     // Clear the input entry field
     gtk_entry_set_text(GTK_ENTRY(data), "");
 
+    free(input_with_newline);
+
     // No need to wait for the child process here, as it should keep running
+    // TODO: Add a way to kill the child process and close the pipe
 }
 
 // Main function
@@ -88,7 +98,7 @@ int main(int argc, char **argv) {
 
     app = gtk_application_new("my.calc", G_APPLICATION_FLAGS_NONE);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-    if (status = g_application_run(G_APPLICATION(app), argc, argv))
+    if ((status = g_application_run(G_APPLICATION(app), argc, argv)))
         perror("g_application_run");
     g_object_unref(app);
 
