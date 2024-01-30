@@ -1,13 +1,13 @@
-# ComplexCalculatorC 🧮
+# Complex Calculator C 🧮
 
-This C program revolutionizes mathematical computations by `interpreting language`, offering a seamless and intuitive experience for complex number operations. Ideal for both educational and professional use, it's more than just a calculator – it's a gateway to exploring complex mathematics with ease and precision.
+This C program revolutionizes mathematical computations by interpreting strings, offering a seamless and intuitive experience for complex number operations. Ideal for both educational and professional use, it's demonstrate C programming concepts such as pointers, structs, and dynamic memory allocation.
 
 This program was created as a homework assignment for the _System programming Laboratory course (20465)_ at the Open University of Israel, and earned a score of `98`.
 
 <p align="center">
-  <img src="images/gui.png" alt="Alt text">
+  <img src="images/gui.png" alt="GUI">
 </p>
-<div align="center"><i>ComplexCalculatorC GUI</i>
+<div align="center"><i>Complex Calculator C GUI</i>
 </div>
 
 ---
@@ -23,15 +23,18 @@ This program was created as a homework assignment for the _System programming La
 - [New GUI! 🖥️](#new-gui-️)
 - [Commands ✍️](#commands-️)
 - [Testing 🧪](#testing-)
+- [New: Expression Parser and Evaluator 🧮](#new-expression-parser-and-evaluator-)
+- [New: Reversed Polish Calculator 🧮](#new-reversed-polish-calculator-)
 - [Contributing 🤝](#contributing-)
 - [License 📜](#license-)
-- [New: Expression Parser and Evaluator 🧮](#new-expression-parser-and-evaluator-)
 
 <!-- /code_chunk_output -->
 
 ---
 
-_**Update**: This repository now includes a new expression parser and evaluator written in C: [calc.c](calc.c). This program parses mathematical expressions and evaluates them using an expression tree. It can be used as a standalone program or as a library for other projects. See the [Expression Parser and Evaluator](#expression-parser-and-evaluator-) section for more details._
+_**Update**: This repository now includes a new expression parser and evaluator written in C: [calc.c](calc.c). This program parses mathematical expressions and evaluates them using an expression tree. It can be used as a standalone program or as a library for other projects. See the [Expression Parser and Evaluator](#new-expression-parser-and-evaluator-) section for more details._
+
+_**Update2**: A new reversed polish calculator features dynamic stack allocation was added to the repository [PRN.c](PRN.c). See the [Reversed Polish Calculator](#new-reversed-polish-calculator-) section for more details._
 
 ## Features ✨
 
@@ -39,7 +42,7 @@ _**Update**: This repository now includes a new expression parser and evaluator 
 
 <div>
 <p align="center">
-  <img src="images/pipeline.png" alt="Alt text"
+  <img src="images/pipeline.png" alt="Pipeline"
   style=": left; margin-right: 10px;"
   hight = 400px width = 400px/>
 </p>
@@ -52,7 +55,7 @@ _**Update**: This repository now includes a new expression parser and evaluator 
 
 <div>
 <p align="center">
-  <img src="images/complex.png" alt="Alt text"
+  <img src="images/complex.png" alt="Operations"
   style=": left; margin-right: 10px;"
   hight = 400px width = 400px/>
 </p>
@@ -102,33 +105,32 @@ To facilitate testing of ComplexCalculatorC, two text files are provided:
 
 - [input.txt](input.txt): Contains a series of valid inputs for testing various functionalities of the program. You can use these inputs to see how the program handles typical use cases.
 
-    ![Alt text](images/correct_input.png)
-    _Example of valid inputs in `input.txt`_
+    <div style="text-align: center; margin-top: 10px">
+      <i>Example of valid inputs in <code>input.txt</code></i>
+    </div>
+    <p align="center">
+      <img src="images/correct_input.png" alt="Input example"
+      height="500px" width="500px"/>
+    </p>
 
 - [invalid_input.txt](invalid_input.txt): Includes examples of invalid inputs to test the program's error handling and robustness. This can help ensure that the program gracefully handles unexpected or incorrect user input.
-
-    ![Alt text](images/invalid_input.png)
-    _Example of invalid inputs in `invalid_input.txt`_
+    <div style="text-align: center; margin-top: 10px">
+      <i>Example of invalid inputs in <code>invalid_input.txt</code></i>
+    </div>
+    <p align="center">
+      <img src="images/invalid_input.png" alt="Invalid input example"
+      height="500px" width="500px"/>
+    </p>
 
 Feel free to use these files to experiment with the program and understand its capabilities and limitations.
-
-## Contributing 🤝
-
-Contributions to ComplexCalculatorC are welcome! If you have suggestions for improvement or have identified issues, please feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/Dor-sketch/ComplexCalculatorC).
-
-## License 📜
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-🚀 Happy Exploring in the World of Complex Numbers! 🧮
 
 ---
 
 ## New: Expression Parser and Evaluator 🧮
 
-This project is a C-based expression parser and evaluator. It constructs an expression tree from mathematical expressions and then evaluates them. Perfect for learning and understanding how parsing works in compilers!
+This program is a C-based expression parser and evaluator. It constructs an expression tree from mathematical expressions and then evaluates them. Perfect for learning and understanding how parsing works in compilers!
 
-The program was originaly designed for the leetcode problem [Basic Calculator](https://leetcode.com/problems/basic-calculator/), but it can be used as a standalone program or as a library for other projects.
+The parser was originaly designed for the leetcode problem [Basic Calculator](https://leetcode.com/problems/basic-calculator/), but it can be used as a standalone program or as a library for other projects.
 
 ### Features 🌟
 
@@ -146,7 +148,7 @@ To compile the program, use the same makefile as before:
 make
 ```
 
-This command compiles the `calc.c` file using the C99 standard with level 2 optimizations, which includes function inlining.
+This command compiles the [calc.c](calc.c) file using the C99 standard with level 2 optimizations, which includes function inlining.
 
 ### Usage 📖
 
@@ -160,24 +162,45 @@ The program will parse the expression, construct the tree, and output the result
 
 Output of [calc_tests.txt](calc_tests.txt):
 
-![Alt text](/images/calc_example.png)
-
-### Contributing 🤝
-
-Contributions to this project are welcome! Whether it's bug fixes, improvements, or new feature suggestions, feel free to fork the repository and submit a pull request.
-
-### License 📜
-
-This project is open-source and available under the [MIT License](LICENSE).
-
-### Acknowledgements 👏
-
-Special thanks to all contributors and users who provided valuable feedback and suggestions for this project.
-
-### Contact 📧
-
-Feel free to reach out for any questions or discussions related to this project. Contact information can be found in my GitHub profile.
+<p align="center">
+  <img src="images/calc_example.png" alt="calc tests"
+  style=": left; margin-right: 10px;"
+  hight = 500px width = 500px/>
+</p>
 
 ---
 
-Happy coding! 😄
+## New: Reversed Polish Calculator 🧮
+
+File [PRN.c](PRN.c) is a C-based reversed polish calculator designed for the leetcode problem [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/). It evaluates mathematical expressions written in reversed polish notation (RPN) and supports dynamic stack allocation.
+
+This solution is 99% faster and 99% less memory-intensive than other submissions on leetcode, by utilizing dynamic stack allocation combined with function inlining.
+
+```c
+/* The structure includes pointer to functions to demonstrate basic OOP concepts */
+typedef struct Stack {
+    int *arr;
+    int sp;
+    int max_size;
+    int (*pop)(struct Stack *);
+    void (*push)(struct Stack *s, int);
+} Stack;
+```
+
+<p align="center">
+  <img src="images/PRN.png" alt="PRN"
+  style=": left; margin-right: 10px;"
+  hight = 500px width = 500px/>
+</p>
+
+---
+
+## Contributing 🤝
+
+Contributions to ComplexCalculatorC are welcome! If you have suggestions for improvement or have identified issues, please feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/Dor-sketch/ComplexCalculatorC).
+
+## License 📜
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+🚀 Happy Exploring in the World of Complex Numbers! 🧮
