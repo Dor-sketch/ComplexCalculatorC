@@ -1,3 +1,4 @@
+/* This file contains the code for the calculator program */
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -12,9 +13,14 @@ typedef struct Expression {
 } Expression;
 
 inline void skipSpaces(char **s) {
+    if (!s || !*s) {
+        return;
+    }
     while (**s) {
+        // TODO: Implement order of operations. multiplication currently runs as
+        // + and -. For now put parentheses around the multiplication.
         if (**s == '(' || **s == ')' || **s == '+' || **s == '-' ||
-            isdigit(**s)) {
+            **s == '*' || isdigit(**s)) {
             return;
         }
         (*s)++;
@@ -48,7 +54,7 @@ inline int getIntFromString(char **s) {
 inline char getOp(char **s) {
     char op = 0;
     while (**s) {
-        if ('+' == (**s) || (**s) == '-') {
+        if ('+' == (**s) || (**s) == '-' || (**s) == '*') {
             op = **s;
             break;
         }
@@ -73,19 +79,28 @@ inline bool checkUnary(char **s) {
 }
 
 void freeExpression(Expression *exp) {
-    if (exp == NULL) {
+    if (!exp) {
         return;
     }
 
-    freeExpression(exp->left);
-    freeExpression(exp->right);
+    if (exp->left) {
+        freeExpression(exp->left);
+    }
+    if (exp->right) {
+        freeExpression(exp->right);
+    }
     free(exp);
+    exp = NULL;
 }
 
 Expression *parseExpression(char **s);
 
 // Parses a simple expression (number or sub-expression in parentheses)
 inline Expression *parseSimpleExpression(char **s) {
+    if (!s || !*s) {
+        return NULL;
+    }
+
     skipSpaces(s);
 
     if (checkUnary(s)) {
@@ -99,13 +114,23 @@ inline Expression *parseSimpleExpression(char **s) {
         exp->op = '-';
         exp->left = NULL;
         exp->right = parseSimpleExpression(s);
+        if (exp->right == NULL) {
+            free(exp);
+            return NULL;
+        }
         return exp;
-    } else if (**s == '(') {
+    } else if (*s && **s == '(') {
         (*s)++; // Skip the '('
         Expression *exp = parseExpression(s);
+        if (exp == NULL) {
+            return NULL;
+        }
         skipSpaces(s);
-        if (**s == ')')
-            (*s)++; // Skip the ')'
+        if (!s || !*s || **s != ')') {
+            freeExpression(exp);
+            return NULL;
+        }
+        (*s)++; // Skip the ')'
         return exp;
     } else {
         Expression *leaf = (Expression *)malloc(sizeof(Expression));
@@ -113,6 +138,7 @@ inline Expression *parseSimpleExpression(char **s) {
             return NULL; // Handle memory allocation failure
         }
 
+        leaf->op = 0;
         leaf->left = leaf->right = NULL;
         leaf->value = getIntFromString(s);
         return leaf;
@@ -122,7 +148,7 @@ inline Expression *parseSimpleExpression(char **s) {
 /* parseExpression: build the expression tree recursively */
 inline Expression *parseExpression(char **s) {
     skipSpaces(s);
-	uint8_t op = 0;
+    uint8_t op = 0;
 
     // Start with the leftmost expression (number or sub-expression)
     Expression *currentExp = parseSimpleExpression(s);
@@ -158,24 +184,32 @@ inline Expression *parseExpression(char **s) {
 }
 
 int evaluateExpression(Expression *exp) {
+    if (exp == NULL) {
+        return 0;
+    }
     if (exp->op == '-' && exp->left == NULL) {
         // Handle unary negation
         return -evaluateExpression(exp->right);
     }
 
     if (exp->left == NULL && exp->right == NULL) {
-        // It's a leaf node
-        return exp->value;
+        int val = exp->value;
+        // freeExpression(exp);
+        // exp = NULL;
+        return val;
     }
 
     int leftVal = evaluateExpression(exp->left);
     int rightVal = evaluateExpression(exp->right);
+    char op = exp->op;
 
-    switch (exp->op) {
+    switch (op) {
     case '+':
         return leftVal + rightVal;
     case '-':
         return leftVal - rightVal;
+    case '*':
+        return leftVal * rightVal;
     }
 
     return 0; // Default return
@@ -225,14 +259,12 @@ void printExpressionTreeInternal(Expression *exp, int level, bool isLeft) {
         printf(" ");
     }
 
-
     if (level > 0) {
         // Print branch
         printf(isLeft ? "└── " : "┌── ");
+    } else {
+        printf("root:");
     }
-	else {
-		printf("root:");
-	}
 
     if (exp->left == NULL && exp->right == NULL) {
         printf("%d", exp->value);
@@ -251,17 +283,25 @@ void printVisualExpressionTree(Expression *exp) {
 
 int calculate(char *s) {
     Expression *exp = parseExpression(&s); // Parse the entire expression
-    printVisualExpressionTree(exp);        // Print the expression tree
-    return evaluateExpression(exp);        // Evaluate the expression tree
+    if (exp == NULL) {
+        return 0;
+    }
+    printVisualExpressionTree(exp); // Print the expression tree
+    int ret = evaluateExpression(exp); // Evaluate the expression tree
+    freeExpression(exp);              // Free the expression tree
+    return ret;
 }
 
-int main() {
+int main(void) {
     char s[100];
     printf("Enter an expression: ");
     while (scanf("%s", s) != EOF) {
-    printf("%s = %d\n", s, calculate(s));
-	printf("================================================\n");
-    printf("Enter an expression: ");
+        if (s[0] == 'q') {
+            break;
+        }
+        printf("%s = %d\n", s, calculate(s));
+        printf("================================================\n");
+        printf("Enter an expression: ");
     }
     return 0;
 }

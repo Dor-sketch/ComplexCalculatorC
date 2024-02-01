@@ -142,10 +142,10 @@ The parser was originaly designed for the leetcode problem [Basic Calculator](ht
 
 ### How to Compile 🛠️
 
-To compile the program, use the same makefile as before:
+To compile the program, use a C compiler such as `gcc` or `clang`:
 
 ```bash
-make
+gcc -std=c99 -O2 calc.c -o calc -lm -Wall -Wextra -Werror -pedantic-errors -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-but-set-parameter -Wno-unused-value -Wno-unused-label -Wno-unused-result -Wno-unused-local-typedefs -Wno-unused && ./expression_parser
 ```
 
 This command compiles the [calc.c](calc.c) file using the C99 standard with level 2 optimizations, which includes function inlining.

@@ -309,7 +309,6 @@ void run_commands(void)
             (*(cmd[i].func))();
 
         memset(command, 0, MAX);
-        i = 0;
         if (is_running == FALSE)
             break;
     }
